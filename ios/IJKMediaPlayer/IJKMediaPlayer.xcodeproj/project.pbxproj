@@ -109,8 +109,6 @@
 		21E6F4D022C39D0500611D3D /* ffpipeline_ffplay.c in Sources */ = {isa = PBXBuildFile; fileRef = E67B91B21A3801E600717EA9 /* ffpipeline_ffplay.c */; };
 		21E6F4D222C39D0500611D3D /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 21DAA15C2298FED6007B0784 /* libbz2.tbd */; };
 		21E6F4D322C39D0500611D3D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5450AF8F1E63E59800568494 /* libz.tbd */; };
-		21E6F4D422C39D0500611D3D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5450AF8C1E63E59300568494 /* libssl.a */; };
-		21E6F4D522C39D0500611D3D /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5450AF8B1E63E59300568494 /* libcrypto.a */; };
 		21E6F4D622C39D0500611D3D /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E653C6EF1BCE5A750016835A /* libavcodec.a */; };
 		21E6F4D722C39D0500611D3D /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E653C6F01BCE5A750016835A /* libavfilter.a */; };
 		21E6F4D822C39D0500611D3D /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E653C6F11BCE5A750016835A /* libavformat.a */; };
@@ -626,8 +624,6 @@
 			files = (
 				21E6F4D222C39D0500611D3D /* libbz2.tbd in Frameworks */,
 				21E6F4D322C39D0500611D3D /* libz.tbd in Frameworks */,
-				21E6F4D422C39D0500611D3D /* libssl.a in Frameworks */,
-				21E6F4D522C39D0500611D3D /* libcrypto.a in Frameworks */,
 				21E6F4D622C39D0500611D3D /* libavcodec.a in Frameworks */,
 				21E6F4D722C39D0500611D3D /* libavfilter.a in Frameworks */,
 				21E6F4D822C39D0500611D3D /* libavformat.a in Frameworks */,
@@ -1821,7 +1817,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 x86_64 i386 armv7";
+				VALID_ARCHS = "arm64 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1880,7 +1876,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 x86_64 i386 armv7";
+				VALID_ARCHS = "arm64 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
