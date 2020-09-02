@@ -2912,7 +2912,7 @@ static int stream_component_open(FFPlayer *ffp, int stream_index)
         avctx->flags |= CODEC_FLAG_EMU_EDGE;
 #endif
 
-    opts = filter_codec_opts(ffp->codec_opts, avctx->codec_id, ic, ic->streams[stream_index], codec);
+    opts = filter_codec_opts2(ffp->codec_opts, avctx->codec_id, ic, ic->streams[stream_index], codec);
     if (!av_dict_get(opts, "threads", NULL, 0))
         av_dict_set(&opts, "threads", "auto", 0);
     if (stream_lowres)
@@ -3196,7 +3196,7 @@ static int read_thread(void *arg)
 
 
     if (ffp->find_stream_info) {
-        AVDictionary **opts = setup_find_stream_info_opts(ic, ffp->codec_opts);
+        AVDictionary **opts = setup_find_stream_info_opts2(ic, ffp->codec_opts);
         int orig_nb_streams = ic->nb_streams;
 
         do {

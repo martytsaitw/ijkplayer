@@ -126,7 +126,7 @@ static int check_stream_specifier(AVFormatContext *s, AVStream *st, const char *
     return ret;
 }
 
-AVDictionary *filter_codec_opts(AVDictionary *opts, enum AVCodecID codec_id,
+AVDictionary *filter_codec_opts2(AVDictionary *opts, enum AVCodecID codec_id,
                                 AVFormatContext *s, AVStream *st, AVCodec *codec)
 {
     AVDictionary    *ret = NULL;
@@ -184,7 +184,7 @@ AVDictionary *filter_codec_opts(AVDictionary *opts, enum AVCodecID codec_id,
     return ret;
 }
 
-AVDictionary **setup_find_stream_info_opts(AVFormatContext *s,
+AVDictionary **setup_find_stream_info_opts2(AVFormatContext *s,
                                            AVDictionary *codec_opts)
 {
     unsigned int i;
@@ -199,7 +199,7 @@ AVDictionary **setup_find_stream_info_opts(AVFormatContext *s,
         return NULL;
     }
     for (i = 0; i < s->nb_streams; i++)
-        opts[i] = filter_codec_opts(codec_opts, s->streams[i]->codecpar->codec_id,
+        opts[i] = filter_codec_opts2(codec_opts, s->streams[i]->codecpar->codec_id,
                                     s, s->streams[i], NULL);
     return opts;
 }

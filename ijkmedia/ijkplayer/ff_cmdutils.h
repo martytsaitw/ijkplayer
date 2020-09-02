@@ -29,8 +29,8 @@
 #include "ff_ffinc.h"
 
 void            print_error(const char *filename, int err);
-AVDictionary  **setup_find_stream_info_opts(AVFormatContext *s, AVDictionary *codec_opts);
-AVDictionary   *filter_codec_opts(AVDictionary *opts, enum AVCodecID codec_id,
+AVDictionary  **setup_find_stream_info_opts2(AVFormatContext *s, AVDictionary *codec_opts);
+AVDictionary   *filter_codec_opts2(AVDictionary *opts, enum AVCodecID codec_id,
                                   AVFormatContext *s, AVStream *st, AVCodec *codec);
 /**
  * Realloc array to hold new_size elements of elem_size.
