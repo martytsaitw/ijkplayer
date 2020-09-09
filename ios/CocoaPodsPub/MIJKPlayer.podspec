@@ -15,20 +15,20 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "BIJKPlayer"
+  spec.name         = "MIJKPlayer"
   spec.version      = "0.7.8"
   spec.summary      = "ijkplayer iOS video player SDK"
 
-  spec.author       = { "befovy" => "befovy@gmail.com" }
+  spec.author       = { "marty.tsai" => "marty.tsai@ulictek.com" }
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  spec.description  = "iOS video player based on FFmpeg n3.4, with VideoToolbox support."
+  spec.description  = "iOS video player based on FFmpeg n4.x, with VideoToolbox support."
 
 
-  spec.homepage     = "https://github.com/befovy/ijkplayer"
+  spec.homepage     = "https://github.com/martytsaitw/mijkplayer"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -75,7 +75,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
   
-  spec.source = { :http => "https://dl.bintray.com/befovytray/bijkplayer/f0.7.8/IJKMediaPlayer.tar.gz" }
+  spec.source = { :http => "https://khhulic2.synology.me:8082/mijkplayer/f0.7.8/IJKMediaPlayer.tar.gz" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #

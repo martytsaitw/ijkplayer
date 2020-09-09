@@ -107,8 +107,6 @@
 		21E6F4CE22C39D0500611D3D /* ijklongurl.c in Sources */ = {isa = PBXBuildFile; fileRef = 54A029B31D4700E6001C61C1 /* ijklongurl.c */; };
 		21E6F4CF22C39D0500611D3D /* renderer_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = E6C459BE1C708CAF004831EC /* renderer_rgb.c */; };
 		21E6F4D022C39D0500611D3D /* ffpipeline_ffplay.c in Sources */ = {isa = PBXBuildFile; fileRef = E67B91B21A3801E600717EA9 /* ffpipeline_ffplay.c */; };
-		21E6F4D222C39D0500611D3D /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 21DAA15C2298FED6007B0784 /* libbz2.tbd */; };
-		21E6F4D322C39D0500611D3D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5450AF8F1E63E59800568494 /* libz.tbd */; };
 		21E6F4D622C39D0500611D3D /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E653C6EF1BCE5A750016835A /* libavcodec.a */; };
 		21E6F4D722C39D0500611D3D /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E653C6F01BCE5A750016835A /* libavfilter.a */; };
 		21E6F4D822C39D0500611D3D /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E653C6F11BCE5A750016835A /* libavformat.a */; };
@@ -622,8 +620,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21E6F4D222C39D0500611D3D /* libbz2.tbd in Frameworks */,
-				21E6F4D322C39D0500611D3D /* libz.tbd in Frameworks */,
 				21E6F4D622C39D0500611D3D /* libavcodec.a in Frameworks */,
 				21E6F4D722C39D0500611D3D /* libavfilter.a in Frameworks */,
 				21E6F4D822C39D0500611D3D /* libavformat.a in Frameworks */,
