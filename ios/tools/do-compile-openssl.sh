@@ -180,5 +180,5 @@ echo "\n--------------------"
 echo "[*] compile openssl"
 echo "--------------------"
 set +e
-make
+make -j 8
 make install_sw
