@@ -131,7 +131,7 @@ static int open_inner(AVFormatContext *avf)
     AVDictionaryEntry *t = NULL;
     int fps_flag = 0;
 
-    new_avf = avformat_alloc_context();
+    new_avf = avformat_alloc_context_ijk();
     if (!new_avf) {
         ret = AVERROR(ENOMEM);
         goto fail;

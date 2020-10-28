@@ -138,7 +138,7 @@ AVDictionary *filter_codec_opts2(AVDictionary *opts, enum AVCodecID codec_id,
 
     if (!codec)
         codec            = s->oformat ? avcodec_find_encoder(codec_id)
-                                      : avcodec_find_decoder(codec_id);
+                                      : avcodec_find_decoder_ijk(codec_id);
 
     switch (st->codecpar->codec_type) {
     case AVMEDIA_TYPE_VIDEO:
