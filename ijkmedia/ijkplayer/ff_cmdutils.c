@@ -134,10 +134,10 @@ AVDictionary *filter_codec_opts2(AVDictionary *opts, enum AVCodecID codec_id,
     int            flags = s->oformat ? AV_OPT_FLAG_ENCODING_PARAM
                                       : AV_OPT_FLAG_DECODING_PARAM;
     char          prefix = 0;
-    const AVClass    *cc = avcodec_get_class();
+    const AVClass    *cc = avcodec_get_class_ijk();
 
     if (!codec)
-        codec            = s->oformat ? avcodec_find_encoder(codec_id)
+        codec            = s->oformat ? avcodec_find_encoder_ijk(codec_id)
                                       : avcodec_find_decoder_ijk(codec_id);
 
     switch (st->codecpar->codec_type) {

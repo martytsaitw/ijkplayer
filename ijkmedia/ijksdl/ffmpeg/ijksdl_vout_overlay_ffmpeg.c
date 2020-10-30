@@ -56,12 +56,12 @@ struct SDL_VoutOverlay_Opaque {
 // TODO: 9 alignment to speed up memcpy when display
 static AVFrame *opaque_setup_frame(SDL_VoutOverlay_Opaque* opaque, enum AVPixelFormat format, int width, int height)
 {
-    AVFrame *managed_frame = av_frame_alloc();
+    AVFrame *managed_frame = av_frame_alloc_ijk();
     if (!managed_frame) {
         return NULL;
     }
 
-    AVFrame *linked_frame = av_frame_alloc();
+    AVFrame *linked_frame = av_frame_alloc_ijk();
     if (!linked_frame) {
         av_frame_free(&managed_frame);
         return NULL;
@@ -96,7 +96,7 @@ static AVFrame *opaque_obtain_managed_frame_buffer(SDL_VoutOverlay_Opaque* opaqu
 
     AVFrame *managed_frame = opaque->managed_frame;
     int frame_bytes = av_image_get_buffer_size(managed_frame->format, managed_frame->width, managed_frame->height, 1);
-    AVBufferRef *frame_buffer_ref = av_buffer_alloc(frame_bytes);
+    AVBufferRef *frame_buffer_ref = av_buffer_alloc_ijk(frame_bytes);
     if (!frame_buffer_ref)
         return NULL;
 

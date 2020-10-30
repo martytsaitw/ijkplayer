@@ -110,7 +110,7 @@ static int copy_stream_props(AVStream *st, AVStream *source_st)
                source_st->codecpar->extradata_size);
         return 0;
     }
-    if ((ret = avcodec_parameters_copy(st->codecpar, source_st->codecpar)) < 0)
+    if ((ret = avcodec_parameters_copy_ijk(st->codecpar, source_st->codecpar)) < 0)
         return ret;
     st->r_frame_rate        = source_st->r_frame_rate;
     st->avg_frame_rate      = source_st->avg_frame_rate;
@@ -155,16 +155,16 @@ static int open_inner(AVFormatContext *avf)
     }
 
     new_avf->interrupt_callback = avf->interrupt_callback;
-    ret = avformat_open_input(&new_avf, c->io_control.url, NULL, &tmp_opts);
+    ret = avformat_open_input_ijk(&new_avf, c->io_control.url, NULL, &tmp_opts);
     if (ret < 0)
         goto fail;
 
-    ret = avformat_find_stream_info(new_avf, NULL);
+    ret = avformat_find_stream_info_ijk(new_avf, NULL);
     if (ret < 0)
         goto fail;
 
     for (i = 0; i < new_avf->nb_streams; i++) {
-        AVStream *st = avformat_new_stream(avf, NULL);
+        AVStream *st = avformat_new_stream_ijk(avf, NULL);
         if (!st) {
             ret = AVERROR(ENOMEM);
             goto fail;

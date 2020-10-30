@@ -627,7 +627,7 @@ failed:
 
 static inline void ResetPktBuffer(Ijk_VideoToolBox_Opaque* context) {
     for (int i = 0 ; i < context->m_buffer_deep; i++) {
-        av_packet_unref(&context->m_buffer_packet[i]);
+        av_packet_unref_ijk(&context->m_buffer_packet[i]);
     }
     context->m_buffer_deep = 0;
     memset(context->m_buffer_packet, 0, sizeof(context->m_buffer_packet));
@@ -661,13 +661,13 @@ static int decode_video(Ijk_VideoToolBox_Opaque* context, AVCodecContext *avctx,
         // minimum avcC(sps,pps) = 7
         if (size_data && size_data_size > 7) {
             int             got_picture = 0;
-            AVFrame        *frame      = av_frame_alloc();
+            AVFrame        *frame      = av_frame_alloc_ijk();
             AVDictionary   *codec_opts = NULL;
-            AVCodecContext *new_avctx  = avcodec_alloc_context3(avctx->codec);
+            AVCodecContext *new_avctx  = avcodec_alloc_context3_ijk(avctx->codec);
             if (!new_avctx)
                 return AVERROR(ENOMEM);
 
-            avcodec_parameters_to_context(new_avctx, context->codecpar);
+            avcodec_parameters_to_context_ijk(new_avctx, context->codecpar);
             av_freep(&new_avctx->extradata);
             new_avctx->extradata = av_mallocz(size_data_size + AV_INPUT_BUFFER_PADDING_SIZE);
             if (!new_avctx->extradata)
@@ -690,7 +690,7 @@ static int decode_video(Ijk_VideoToolBox_Opaque* context, AVCodecContext *avctx,
             } else {
                 if (context->codecpar->width  != new_avctx->width &&
                     context->codecpar->height != new_avctx->height) {
-                    avcodec_parameters_from_context(context->codecpar, new_avctx);
+                    avcodec_parameters_from_context_ijk(context->codecpar, new_avctx);
                     context->refresh_request = true;
                 }
             }
@@ -873,7 +873,7 @@ int videotoolbox_sync_decode_frame(Ijk_VideoToolBox_Opaque* context)
 
             av_packet_split_side_data(&pkt);
 
-            av_packet_unref(&d->pkt);
+            av_packet_unref_ijk(&d->pkt);
             d->pkt_temp = d->pkt = pkt;
             d->packet_pending = 1;
         }
@@ -1056,11 +1056,11 @@ Ijk_VideoToolBox_Opaque* videotoolbox_sync_create(FFPlayer* ffp, AVCodecContext*
         goto fail;
     }
 
-    context_vtb->codecpar = avcodec_parameters_alloc();
+    context_vtb->codecpar = avcodec_parameters_alloc_ijk();
     if (!context_vtb->codecpar)
         goto fail;
 
-    ret = avcodec_parameters_from_context(context_vtb->codecpar, avctx);
+    ret = avcodec_parameters_from_context_ijk(context_vtb->codecpar, avctx);
     if (ret)
         goto fail;
 
