@@ -42,7 +42,7 @@
 #import "ijkplayer/ijkavformat/ijkioapplication.h"
 #include "string.h"
 
-static const char *kIJKFFRequiredFFmpegVersion = "ffmpeg-020";
+static const char *kIJKFFRequiredFFmpegVersion = "ffmpeg-021";
 
 // It means you didn't call shutdown if you found this object leaked.
 @interface IJKWeakHolder : NSObject
