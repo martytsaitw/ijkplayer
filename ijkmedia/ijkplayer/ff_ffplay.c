@@ -673,7 +673,7 @@ static int decoder_decode_frame(FFPlayer *ffp, Decoder *d, AVFrame *frame, AVSub
 
 static void decoder_destroy(Decoder *d) {
     av_packet_unref_ijk(&d->pkt);
-    avcodec_free_context(&d->avctx);
+    avcodec_free_context_ijk(&d->avctx);
 }
 
 static void frame_queue_unref_item(Frame *vp)
@@ -1078,7 +1078,7 @@ static void stream_close(FFPlayer *ffp)
             sws_freeContext(ffp->get_img_info->frame_img_convert_ctx);
         }
         if (ffp->get_img_info->frame_img_codec_ctx) {
-            avcodec_free_context(&ffp->get_img_info->frame_img_codec_ctx);
+            avcodec_free_context_ijk(&ffp->get_img_info->frame_img_codec_ctx);
         }
         av_freep(&ffp->get_img_info->img_path);
         av_freep(&ffp->get_img_info);
@@ -3065,7 +3065,7 @@ static int stream_component_open(FFPlayer *ffp, int stream_index)
     goto out;
 
 fail:
-    avcodec_free_context(&avctx);
+    avcodec_free_context_ijk(&avctx);
 out:
     av_dict_free(&opts);
 

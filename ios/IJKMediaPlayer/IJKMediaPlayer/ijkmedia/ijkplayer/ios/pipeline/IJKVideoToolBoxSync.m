@@ -679,13 +679,13 @@ static int decode_video(Ijk_VideoToolBox_Opaque* context, AVCodecContext *avctx,
             ret = avcodec_open2(new_avctx, avctx->codec, &codec_opts);
             av_dict_free(&codec_opts);
             if (ret < 0) {
-                avcodec_free_context(&new_avctx);
+                avcodec_free_context_ijk(&new_avctx);
                 return ret;
             }
 
             ret = avcodec_decode_video2(new_avctx, frame, &got_picture, avpkt);
             if (ret < 0) {
-                avcodec_free_context(&new_avctx);
+                avcodec_free_context_ijk(&new_avctx);
                 return ret;
             } else {
                 if (context->codecpar->width  != new_avctx->width &&
@@ -696,7 +696,7 @@ static int decode_video(Ijk_VideoToolBox_Opaque* context, AVCodecContext *avctx,
             }
 
             av_frame_unref(frame);
-            avcodec_free_context(&new_avctx);
+            avcodec_free_context_ijk(&new_avctx);
         }
     } else {
         if (ff_avpacket_is_idr(avpkt) == true) {
@@ -837,7 +837,7 @@ void videotoolbox_sync_free(Ijk_VideoToolBox_Opaque* context)
 
     vtbformat_destroy(&context->fmt_desc);
 
-    avcodec_parameters_free(&context->codecpar);
+    avcodec_parameters_free_ijk(&context->codecpar);
 }
 
 int videotoolbox_sync_decode_frame(Ijk_VideoToolBox_Opaque* context)

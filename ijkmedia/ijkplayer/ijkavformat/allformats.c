@@ -43,7 +43,7 @@ static struct AVInputFormat *ijkav_find_input_format(const char *iformat_name)
     AVInputFormat *fmt = NULL;
     if (!iformat_name)
         return NULL;
-    while ((fmt = av_iformat_next(fmt))) {
+    while ((fmt = av_iformat_next_ijk(fmt))) {
         if (!fmt->name)
             continue;
         if (!strcmp(iformat_name, fmt->name))
