@@ -2217,7 +2217,7 @@ static int ffplay_video_thread(void *arg)
     double duration;
     int ret;
     AVRational tb = is->video_st->time_base;
-    AVRational frame_rate = av_guess_frame_rate(is->ic, is->video_st, NULL);
+    AVRational frame_rate = av_guess_frame_rate_ijk(is->ic, is->video_st, NULL);
     int64_t dst_pts = -1;
     int64_t last_dst_pts = -1;
     int retry_convert_image = 0;
@@ -3290,17 +3290,17 @@ static int read_thread(void *arg)
     }
     if (!ffp->video_disable)
         st_index[AVMEDIA_TYPE_VIDEO] =
-            av_find_best_stream(ic, AVMEDIA_TYPE_VIDEO,
+            av_find_best_stream_ijk(ic, AVMEDIA_TYPE_VIDEO,
                                 st_index[AVMEDIA_TYPE_VIDEO], -1, NULL, 0);
     if (!ffp->audio_disable)
         st_index[AVMEDIA_TYPE_AUDIO] =
-            av_find_best_stream(ic, AVMEDIA_TYPE_AUDIO,
+            av_find_best_stream_ijk(ic, AVMEDIA_TYPE_AUDIO,
                                 st_index[AVMEDIA_TYPE_AUDIO],
                                 st_index[AVMEDIA_TYPE_VIDEO],
                                 NULL, 0);
     if (!ffp->video_disable && !ffp->subtitle_disable)
         st_index[AVMEDIA_TYPE_SUBTITLE] =
-            av_find_best_stream(ic, AVMEDIA_TYPE_SUBTITLE,
+            av_find_best_stream_ijk(ic, AVMEDIA_TYPE_SUBTITLE,
                                 st_index[AVMEDIA_TYPE_SUBTITLE],
                                 (st_index[AVMEDIA_TYPE_AUDIO] >= 0 ?
                                  st_index[AVMEDIA_TYPE_AUDIO] :
@@ -3571,7 +3571,7 @@ static int read_thread(void *arg)
             }
         }
         pkt->flags = 0;
-        ret = av_read_frame(ic, pkt);
+        ret = av_read_frame_ijk(ic, pkt);
         if (ret < 0) {
             int pb_eof = 0;
             int pb_error = 0;

@@ -246,7 +246,7 @@ static int ijklivehook_read_packet(AVFormatContext *avf, AVPacket *pkt)
         return c->error;
 
     if (c->inner)
-        ret = av_read_frame(c->inner, pkt);
+        ret = av_read_frame_ijk(c->inner, pkt);
 
     c->io_control.retry_counter = 0;
     while (ret < 0) {
@@ -275,7 +275,7 @@ static int ijklivehook_read_packet(AVFormatContext *avf, AVPacket *pkt)
             continue;
 
 continue_read:
-        ret = av_read_frame(c->inner, pkt);
+        ret = av_read_frame_ijk(c->inner, pkt);
     }
 
     if (c->discontinuity) {

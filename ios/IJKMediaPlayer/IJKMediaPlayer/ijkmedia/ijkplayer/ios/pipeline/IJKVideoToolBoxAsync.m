@@ -319,7 +319,7 @@ static void QueuePicture(Ijk_VideoToolBox_Opaque* ctx) {
     AVFrame picture = {0};
     if (true == GetVTBPicture(ctx, &picture)) {
         AVRational tb = ctx->ffp->is->video_st->time_base;
-        AVRational frame_rate = av_guess_frame_rate(ctx->ffp->is->ic, ctx->ffp->is->video_st, NULL);
+        AVRational frame_rate = av_guess_frame_rate_ijk(ctx->ffp->is->ic, ctx->ffp->is->video_st, NULL);
         double duration = (frame_rate.num && frame_rate.den ? av_q2d((AVRational) {frame_rate.den, frame_rate.num}) : 0);
         double pts = (picture.pts == AV_NOPTS_VALUE) ? NAN : picture.pts * av_q2d(tb);
 
