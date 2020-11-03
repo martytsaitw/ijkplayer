@@ -164,7 +164,7 @@ static int64_t get_bit_rate(AVCodecParameters *codecpar)
             bit_rate = codecpar->bit_rate;
             break;
         case AVMEDIA_TYPE_AUDIO:
-            bits_per_sample = av_get_bits_per_sample(codecpar->codec_id);
+            bits_per_sample = av_get_bits_per_sample_xij(codecpar->codec_id);
             bit_rate = bits_per_sample ? codecpar->sample_rate * codecpar->channels * bits_per_sample : codecpar->bit_rate;
             break;
         default:
@@ -205,14 +205,14 @@ void ijkmeta_set_avformat_context_l(IjkMediaMeta *meta, AVFormatContext *ic)
             continue;
 
         AVCodecParameters *codecpar = st->codecpar;
-        const char *codec_name = avcodec_get_name(codecpar->codec_id);
+        const char *codec_name = avcodec_get_name_xij(codecpar->codec_id);
         if (codec_name)
             ijkmeta_set_string_l(stream_meta, IJKM_KEY_CODEC_NAME, codec_name);
         if (codecpar->profile != FF_PROFILE_UNKNOWN) {
             const AVCodec *codec = avcodec_find_decoder_ijk(codecpar->codec_id);
             if (codec) {
                 ijkmeta_set_int64_l(stream_meta, IJKM_KEY_CODEC_PROFILE_ID, codecpar->profile);
-                const char *profile = av_get_profile_name(codec, codecpar->profile);
+                const char *profile = av_get_profile_name_xij(codec, codecpar->profile);
                 if (profile)
                     ijkmeta_set_string_l(stream_meta, IJKM_KEY_CODEC_PROFILE, profile);
                 if (codec->long_name)

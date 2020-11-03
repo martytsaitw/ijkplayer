@@ -120,7 +120,7 @@ void print_error(const char *filename, int err)
 
 static int check_stream_specifier(AVFormatContext *s, AVStream *st, const char *spec)
 {
-    int ret = avformat_match_stream_specifier(s, st, spec);
+    int ret = avformat_match_stream_specifier_xij(s, st, spec);
     if (ret < 0)
         av_log(s, AV_LOG_ERROR, "Invalid stream specifier: %s.\n", spec);
     return ret;
@@ -226,7 +226,7 @@ void *grow_array(void *array, int elem_size, int *size, int new_size)
 double get_rotation(AVStream *st)
 {
     AVDictionaryEntry *rotate_tag = av_dict_get(st->metadata, "rotate", NULL, 0);
-    uint8_t* displaymatrix = av_stream_get_side_data(st,
+    uint8_t* displaymatrix = av_stream_get_side_data_xij(st,
                                                      AV_PKT_DATA_DISPLAYMATRIX, NULL);
     double theta = 0;
 

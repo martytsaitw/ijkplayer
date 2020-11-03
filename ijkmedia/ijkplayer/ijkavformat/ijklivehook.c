@@ -84,7 +84,7 @@ static int ijklivehook_read_close(AVFormatContext *avf)
 {
     Context *c = avf->priv_data;
 
-    avformat_close_input(&c->inner);
+    avformat_close_input_xij(&c->inner);
     return 0;
 }
 
@@ -175,13 +175,13 @@ static int open_inner(AVFormatContext *avf)
             goto fail;
     }
 
-    avformat_close_input(&c->inner);
+    avformat_close_input_xij(&c->inner);
     c->inner = new_avf;
     new_avf = NULL;
     ret = 0;
 fail:
     av_dict_free(&tmp_opts);
-    avformat_close_input(&new_avf);
+    avformat_close_input_xij(&new_avf);
     return ret;
 }
 

@@ -58,7 +58,7 @@ static void ijkav_register_input_format(AVInputFormat *iformat)
         av_log(NULL, AV_LOG_WARNING, "skip     demuxer : %s (duplicated)\n", iformat->name);
     } else {
         av_log(NULL, AV_LOG_INFO,    "register demuxer : %s\n", iformat->name);
-        av_register_input_format(iformat);
+        av_register_input_format_xij(iformat);
     }
 }
 
@@ -71,7 +71,7 @@ void ijkav_register_all(void)
         return;
     initialized = 1;
 
-    av_register_all();
+    av_register_all_xij();
 
     /* protocols */
     av_log(NULL, AV_LOG_INFO, "===== custom modules begin =====\n");

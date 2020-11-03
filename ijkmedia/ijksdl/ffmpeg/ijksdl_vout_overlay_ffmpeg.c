@@ -63,7 +63,7 @@ static AVFrame *opaque_setup_frame(SDL_VoutOverlay_Opaque* opaque, enum AVPixelF
 
     AVFrame *linked_frame = av_frame_alloc_ijk();
     if (!linked_frame) {
-        av_frame_free(&managed_frame);
+        av_frame_free_xij(&managed_frame);
         return NULL;
     }
 
@@ -116,18 +116,18 @@ static void func_free_l(SDL_VoutOverlay *overlay)
     if (!opaque)
         return;
 
-    sws_freeContext(opaque->img_convert_ctx);
+    sws_freeContext_xij(opaque->img_convert_ctx);
 
     if (opaque->managed_frame)
-        av_frame_free(&opaque->managed_frame);
+        av_frame_free_xij(&opaque->managed_frame);
 
     if (opaque->linked_frame) {
-        av_frame_unref(opaque->linked_frame);
-        av_frame_free(&opaque->linked_frame);
+        av_frame_unref_xij(opaque->linked_frame);
+        av_frame_free_xij(&opaque->linked_frame);
     }
 
     if (opaque->frame_buffer)
-        av_buffer_unref(&opaque->frame_buffer);
+        av_buffer_unref_xij(&opaque->frame_buffer);
 
     if (opaque->mutex)
         SDL_DestroyMutex(opaque->mutex);
@@ -163,7 +163,7 @@ static int func_fill_frame(SDL_VoutOverlay *overlay, const AVFrame *frame)
     SDL_VoutOverlay_Opaque *opaque = overlay->opaque;
     AVFrame swscale_dst_pic = { { 0 } };
 
-    av_frame_unref(opaque->linked_frame);
+    av_frame_unref_xij(opaque->linked_frame);
 
     int need_swap_uv = 0;
     int use_linked_frame = 0;
@@ -217,7 +217,7 @@ static int func_fill_frame(SDL_VoutOverlay *overlay, const AVFrame *frame)
     // setup frame
     if (use_linked_frame) {
         // linked frame
-        av_frame_ref(opaque->linked_frame, frame);
+        av_frame_ref_xij(opaque->linked_frame, frame);
 
         overlay_fill(overlay, opaque->linked_frame, opaque->planes);
 
@@ -261,7 +261,7 @@ static int func_fill_frame(SDL_VoutOverlay *overlay, const AVFrame *frame)
     } else if (ijk_image_convert(frame->width, frame->height,
                                  dst_format, swscale_dst_pic.data, swscale_dst_pic.linesize,
                                  frame->format, (const uint8_t**) frame->data, frame->linesize)) {
-        opaque->img_convert_ctx = sws_getCachedContext(opaque->img_convert_ctx,
+        opaque->img_convert_ctx = sws_getCachedContext_xij(opaque->img_convert_ctx,
                                                        frame->width, frame->height, frame->format, frame->width, frame->height,
                                                        dst_format, opaque->sws_flags, NULL, NULL, NULL);
         if (opaque->img_convert_ctx == NULL) {

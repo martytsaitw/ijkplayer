@@ -654,11 +654,11 @@ static int decode_video_internal(Ijk_VideoToolBox_Opaque* context, AVCodecContex
 
     if (context->fmt_desc.convert_bytestream) {
         // ALOGI("the buffer should m_convert_byte\n");
-        if(avio_open_dyn_buf(&pb) < 0) {
+        if(avio_open_dyn_buf_xij(&pb) < 0) {
             goto failed;
         }
         ff_avc_parse_nal_units(pb, pData, iSize);
-        demux_size = avio_close_dyn_buf(pb, &demux_buff);
+        demux_size = avio_close_dyn_buf_xij(pb, &demux_buff);
         // ALOGI("demux_size:%d\n", demux_size);
         if (demux_size == 0) {
             goto failed;
@@ -666,7 +666,7 @@ static int decode_video_internal(Ijk_VideoToolBox_Opaque* context, AVCodecContex
         sample_buff = CreateSampleBufferFrom(context->fmt_desc.fmt_desc, demux_buff, demux_size);
     } else if (context->fmt_desc.convert_3byteTo4byteNALSize) {
         // ALOGI("3byteto4byte\n");
-        if (avio_open_dyn_buf(&pb) < 0) {
+        if (avio_open_dyn_buf_xij(&pb) < 0) {
             goto failed;
         }
 
@@ -675,12 +675,12 @@ static int decode_video_internal(Ijk_VideoToolBox_Opaque* context, AVCodecContex
         uint8_t *nal_start = pData;
         while (nal_start < end) {
             nal_size = AV_RB24(nal_start);
-            avio_wb32(pb, nal_size);
+            avio_wb32_xij(pb, nal_size);
             nal_start += 3;
-            avio_write(pb, nal_start, nal_size);
+            avio_write_xij(pb, nal_start, nal_size);
             nal_start += nal_size;
         }
-        demux_size = avio_close_dyn_buf(pb, &demux_buff);
+        demux_size = avio_close_dyn_buf_xij(pb, &demux_buff);
         sample_buff = CreateSampleBufferFrom(context->fmt_desc.fmt_desc, demux_buff, demux_size);
     } else {
         sample_buff = CreateSampleBufferFrom(context->fmt_desc.fmt_desc, pData, iSize);
@@ -772,7 +772,7 @@ static inline void DuplicatePkt(Ijk_VideoToolBox_Opaque* context, const AVPacket
         ResetPktBuffer(context);
     }
     AVPacket* avpkt = &context->m_buffer_packet[context->m_buffer_deep];
-    av_copy_packet(avpkt, pkt);
+    av_copy_packet_xij(avpkt, pkt);
     context->m_buffer_deep++;
 }
 
@@ -790,7 +790,7 @@ static int decode_video(Ijk_VideoToolBox_Opaque* context, AVCodecContext *avctx,
 
     if (context->ffp->vtb_handle_resolution_change &&
         context->codecpar->codec_id == AV_CODEC_ID_H264) {
-        size_data = av_packet_get_side_data(avpkt, AV_PKT_DATA_NEW_EXTRADATA, &size_data_size);
+        size_data = av_packet_get_side_data_xij(avpkt, AV_PKT_DATA_NEW_EXTRADATA, &size_data_size);
         // minimum avcC(sps,pps) = 7
         if (size_data && size_data_size > 7) {
             int             got_picture = 0;
@@ -809,14 +809,13 @@ static int decode_video(Ijk_VideoToolBox_Opaque* context, AVCodecContext *avctx,
             new_avctx->extradata_size = size_data_size;
 
             av_dict_set(&codec_opts, "threads", "1", 0);
-            ret = avcodec_open2(new_avctx, avctx->codec, &codec_opts);
-            av_dict_free(&codec_opts);
+            ret = avcodec_open2_xij(new_avctx, avctx->codec, &codec_opts);
             if (ret < 0) {
                 avcodec_free_context_ijk(&new_avctx);
                 return ret;
             }
 
-            ret = avcodec_decode_video2(new_avctx, frame, &got_picture, avpkt);
+            ret = avcodec_decode_video2_xij(new_avctx, frame, &got_picture, avpkt);
             if (ret < 0) {
                 avcodec_free_context_ijk(&new_avctx);
                 return ret;
@@ -828,7 +827,7 @@ static int decode_video(Ijk_VideoToolBox_Opaque* context, AVCodecContext *avctx,
                 }
             }
 
-            av_frame_unref(frame);
+            av_frame_unref_xij(frame);
             avcodec_free_context_ijk(&new_avctx);
         }
     } else {
@@ -999,7 +998,7 @@ int videotoolbox_async_decode_frame(Ijk_VideoToolBox_Opaque* context)
                 if (ffp_packet_queue_get_or_buffering(ffp, d->queue, &pkt, &d->pkt_serial, &d->finished) < 0)
                     return -1;
                 if (ffp_is_flush_packet(&pkt)) {
-                    avcodec_flush_buffers(d->avctx);
+                    avcodec_flush_buffers_xij(d->avctx);
                     context->refresh_request = true;
                     context->serial += 1;
                     d->finished = 0;
@@ -1009,7 +1008,7 @@ int videotoolbox_async_decode_frame(Ijk_VideoToolBox_Opaque* context)
                 }
             } while (ffp_is_flush_packet(&pkt) || d->queue->serial != d->pkt_serial);
 
-            av_packet_split_side_data(&pkt);
+            av_packet_split_side_data_xij(&pkt);
 
             av_packet_unref_ijk(&d->pkt);
             d->pkt_temp = d->pkt = pkt;
@@ -1141,7 +1140,7 @@ static int vtbformat_init(VTBFormatDesc *fmt_desc, AVCodecParameters *codecpar)
                 if ((extradata[0] == 0 && extradata[1] == 0 && extradata[2] == 0 && extradata[3] == 1) ||
                     (extradata[0] == 0 && extradata[1] == 0 && extradata[2] == 1)) {
                     AVIOContext *pb;
-                    if (avio_open_dyn_buf(&pb) < 0) {
+                    if (avio_open_dyn_buf_xij(&pb) < 0) {
                         goto fail;
                     }
 
@@ -1149,7 +1148,7 @@ static int vtbformat_init(VTBFormatDesc *fmt_desc, AVCodecParameters *codecpar)
                     ff_isom_write_avcc(pb, extradata, extrasize);
                     extradata = NULL;
 
-                    extrasize = avio_close_dyn_buf(pb, &extradata);
+                    extrasize = avio_close_dyn_buf_xij(pb, &extradata);
 
                     if (!validate_avcC_spc(extradata, extrasize, &fmt_desc->max_ref_frames, &sps_level, &sps_profile)) {
                         av_free(extradata);
