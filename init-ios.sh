@@ -19,7 +19,7 @@
 # IJK_FFMPEG_UPSTREAM=git://git.videolan.org/ffmpeg.git
 IJK_FFMPEG_UPSTREAM=https://github.com/martytsaitw/FFmpeg.git
 IJK_FFMPEG_FORK=https://github.com/martytsaitw/FFmpeg.git
-IJK_FFMPEG_COMMIT=ffmpeg-037
+IJK_FFMPEG_COMMIT=ffmpeg-041
 IJK_FFMPEG_LOCAL_REPO=extra/ffmpeg
 
 IJK_GASP_UPSTREAM=https://github.com/Bilibili/gas-preprocessor.git
@@ -41,7 +41,7 @@ TOOLS=tools
 
 FF_ALL_ARCHS_IOS6_SDK="armv7 armv7s i386"
 FF_ALL_ARCHS_IOS7_SDK="armv7 armv7s arm64 i386 x86_64"
-FF_ALL_ARCHS_IOS8_SDK="x86_64"
+FF_ALL_ARCHS_IOS8_SDK="arm64 x86_64"
 FF_ALL_ARCHS=$FF_ALL_ARCHS_IOS8_SDK
 FF_TARGET=$1
 
