@@ -2031,7 +2031,7 @@ int show_help(void *optctx, const char *opt, const char *arg)
         if (program_name && !strcmp(program_name, "ffmpeg")) {
             show_help_default_ffmpeg(topic, par);
         } else {
-            show_help_default_ffprobe(topic, par);
+            //show_help_default_ffprobe(topic, par);
         }
     } else if (!strcmp(topic, "decoder")) {
         show_help_codec(par, 0);
@@ -2051,7 +2051,7 @@ int show_help(void *optctx, const char *opt, const char *arg)
         if (program_name && !strcmp(program_name, "ffmpeg")) {
             show_help_default_ffmpeg(topic, par);
         } else {
-            show_help_default_ffprobe(topic, par);
+            //show_help_default_ffprobe(topic, par);
         }
     }
 

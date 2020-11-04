@@ -250,7 +250,7 @@ extern volatile int handleSIGTERM;
 extern volatile int handleSIGXCPU;
 extern volatile int handleSIGPIPE;
 
-extern __thread volatile long executionId;
+__thread volatile long executionId;
 extern int cancelRequested(long executionId);
 extern void removeExecution(long executionId);
 
